@@ -129,3 +129,27 @@ with open(output_file, 'w', newline='') as csv_output:
     csv_writer.writerows(output_data)
 
 print("Conversion complete.")
+
+#below code removes double quotation marks from values in a specified column
+import csv
+
+input_file = 'input.csv'  # Replace with your input CSV file name
+output_file = 'output.csv'  # Replace with your output CSV file name
+column_index = 2  # Replace with the index of the column to process (0-based)
+
+output_data = []
+
+with open(input_file, 'r') as csv_input:
+    csv_reader = csv.reader(csv_input)
+    for row in csv_reader:
+        if len(row) > column_index:
+            value = row[column_index]
+            if value.startswith('"') and value.endswith('"'):
+                row[column_index] = value[1:-1]  # Remove double quotation marks
+        output_data.append(row)
+
+with open(output_file, 'w', newline='') as csv_output:
+    csv_writer = csv.writer(csv_output)
+    csv_writer.writerows(output_data)
+
+print("Double quotation marks removed from column in the CSV file.")
