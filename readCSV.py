@@ -95,3 +95,37 @@ with open(input_file, 'r', newline='') as file_in, open(output_file, 'w', newlin
         # Exclude the column to be removed from each row
         modified_row = {field: row[field] for field in fieldnames}
         writer.writerow(modified_row)
+
+
+
+#below code imports a csv file and converts values in a given column to a format PostgreSQL can accept
+import csv
+from datetime import datetime
+
+input_file = 'input.csv'  # Replace with your input CSV file name
+output_file = 'output.csv'  # Replace with your output CSV file name
+input_column_index = 2  # Replace with the index of the column containing timestamps (0-based)
+
+input_format = "%d-%m-%y %H:%M"
+output_format = "%Y-%m-%d %H:%M:%S"
+
+output_data = []
+
+with open(input_file, 'r') as csv_input:
+    csv_reader = csv.reader(csv_input)
+    for row in csv_reader:
+        if len(row) > input_column_index:
+            timestamp_string = row[input_column_index]
+            try:
+                parsed_datetime = datetime.strptime(timestamp_string, input_format)
+                formatted_timestamp = parsed_datetime.strftime(output_format)
+                row[input_column_index] = formatted_timestamp
+            except ValueError:
+                pass  # Handle invalid timestamps here if needed
+        output_data.append(row)
+
+with open(output_file, 'w', newline='') as csv_output:
+    csv_writer = csv.writer(csv_output)
+    csv_writer.writerows(output_data)
+
+print("Conversion complete.")
