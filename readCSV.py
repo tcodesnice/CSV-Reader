@@ -134,6 +134,8 @@ with open(output_file, 'w', newline='') as csv_output:
 
 print("Conversion complete.")
 
+#----------------
+
 #below code removes double quotation marks from values in a specified column
 import csv
 
@@ -157,3 +159,27 @@ with open(output_file, 'w', newline='') as csv_output:
     csv_writer.writerows(output_data)
 
 print("Double quotation marks removed from column in the CSV file.")
+
+
+#----------------
+
+#imports csv file, removes commas from column of choice
+import pandas as pd
+
+# Define the paths for input and output CSV files
+input_csv_file_path = '/path/to/input/file.csv'
+output_csv_file_path = '/path/to/output/file.csv'
+
+# Load the CSV file into a DataFrame
+df = pd.read_csv(input_csv_file_path)
+
+# Specify the name of the column where you want to remove commas
+target_column = 'Column_Name'  # Replace with the actual column name
+
+# Remove commas from the specified column
+df[target_column] = df[target_column].str.replace(',', '')
+
+# Save the modified DataFrame to a new CSV file
+df.to_csv(output_csv_file_path, index=False)
+
+print(f"Commas removed from '{target_column}' column and saved to '{output_csv_file_path}'.")
