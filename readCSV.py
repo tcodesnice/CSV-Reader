@@ -1,3 +1,6 @@
+#---------------
+
+#imports csv file, takes out percent signs and converts the numbers to decimal representation
 import pandas as pd
 
 csv_file_path = 'enter/file/path/here'
@@ -20,6 +23,7 @@ for column in columns_with_equals:
 output_csv_file_path = 'enter/file/path/here'
 df.to_csv(output_csv_file_path, index=False)
 
+#---------------
 
 #below code rounds all decimals in given columns to two decimal places
 import pandas as pd
