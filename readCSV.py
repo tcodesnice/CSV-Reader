@@ -59,8 +59,7 @@ print(f"The highest value in column '{column_name}' is: {max_value}")
 
 #---------------
 
-#imports csv file, takes out blank spaces from all columns/rows and produces a new file that saves
-#to desktop  
+#imports csv file, takes out blank spaces from all columns/rows and produces a new file that saves to desktop  
 
 import csv
 
