@@ -195,11 +195,14 @@ def get_day_of_week(date_string):
     day_of_week = weekdays[date_obj.weekday()]
     return day_of_week
 
+# Column containing cleaned date values
+cleaned_date_column = 'cleaned_date'  # Change this to the actual cleaned date column name
+
 # Input and output file names
 input_file = 'input.csv'
 output_file = 'output.csv'
 
-# Read input CSV and write to output CSV with date column converted to days of the week
+# Read input CSV and write to output CSV with day of the week added
 with open(input_file, 'r', newline='') as csv_input, open(output_file, 'w', newline='') as csv_output:
     reader = csv.DictReader(csv_input)
     fieldnames = reader.fieldnames + ['day_of_week']
@@ -208,9 +211,10 @@ with open(input_file, 'r', newline='') as csv_input, open(output_file, 'w', newl
     writer.writeheader()
     
     for row in reader:
-        date_value = row['date']
-        day_of_week = get_day_of_week(date_value)
+        cleaned_date_value = row[cleaned_date_column]
+        day_of_week = get_day_of_week(cleaned_date_value)
         row['day_of_week'] = day_of_week
         writer.writerow(row)
 
 print("Conversion completed. Output CSV file:", output_file)
+
