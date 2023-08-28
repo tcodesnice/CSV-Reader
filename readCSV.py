@@ -182,3 +182,35 @@ df[target_column] = df[target_column].str.replace(',', '')
 df.to_csv(output_csv_file_path, index=False)
 
 print(f"Commas removed from '{target_column}' column and saved to '{output_csv_file_path}'.")
+
+#----------------
+#takes csv file as input and outputs csv file with columns that contain dates conveted into days of the week
+import csv
+from datetime import datetime
+
+# Function to convert a date string to the day of the week
+def get_day_of_week(date_string):
+    weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    date_obj = datetime.strptime(date_string, '%Y-%m-%d')
+    day_of_week = weekdays[date_obj.weekday()]
+    return day_of_week
+
+# Input and output file names
+input_file = 'input.csv'
+output_file = 'output.csv'
+
+# Read input CSV and write to output CSV with date column converted to days of the week
+with open(input_file, 'r', newline='') as csv_input, open(output_file, 'w', newline='') as csv_output:
+    reader = csv.DictReader(csv_input)
+    fieldnames = reader.fieldnames + ['day_of_week']
+    
+    writer = csv.DictWriter(csv_output, fieldnames=fieldnames)
+    writer.writeheader()
+    
+    for row in reader:
+        date_value = row['date']
+        day_of_week = get_day_of_week(date_value)
+        row['day_of_week'] = day_of_week
+        writer.writerow(row)
+
+print("Conversion completed. Output CSV file:", output_file)
