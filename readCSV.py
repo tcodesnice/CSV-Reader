@@ -100,7 +100,7 @@ with open(input_file, 'r', newline='') as file_in, open(output_file, 'w', newlin
         writer.writerow(modified_row)
 
 
-
+#----------------------------
 #below code imports a csv file and converts values in a given column to a format PostgreSQL can accept
 import csv
 from datetime import datetime
@@ -217,4 +217,31 @@ with open(input_file, 'r', newline='') as csv_input, open(output_file, 'w', newl
         writer.writerow(row)
 
 print("Conversion completed. Output CSV file:", output_file)
+
+#---------------
+#code below removes all commas and quotation marks from given csv file
+
+import csv
+
+def clean_csv(input_file, output_file):
+    with open(input_file, 'r', newline='', encoding='utf-8') as infile:
+        reader = csv.reader(infile)
+        header = next(reader)  # Read the header
+        
+        cleaned_rows = []
+        for row in reader:
+            cleaned_row = [column.replace(',', '').replace('"', '') for column in row]
+            cleaned_rows.append(cleaned_row)
+
+    with open(output_file, 'w', newline='', encoding='utf-8') as outfile:
+        writer = csv.writer(outfile)
+        writer.writerow(header)
+        writer.writerows(cleaned_rows)
+
+if __name__ == '__main__':
+    input_csv = 'input/csv/filepath'  # Replace with your input CSV filename
+    output_csv = 'output/csv/filepath'  # Replace with your desired output CSV filename
+    
+    clean_csv(input_csv, output_csv)
+    print(f'Cleaned CSV saved as {output_csv}')
 
