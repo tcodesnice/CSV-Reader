@@ -245,3 +245,11 @@ if __name__ == '__main__':
     clean_csv(input_csv, output_csv)
     print(f'Cleaned CSV saved as {output_csv}')
 
+#returns the HTML structure of a given website
+
+import requests
+
+URL = "https://www.theworlds50best.com/previous-list/2022"
+page = requests.get(URL)
+
+print(page.text)
